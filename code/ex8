@@ -1,0 +1,41 @@
+NOTE: If you did not login as the d4asec user use "sudo" before every linux command to avoid the "Permission denied" error. Ex. sudo ls /home/d4asec/
+
+1. Login to the RHDocker or backupl servers as d4asec or d4ab92
+2. Move to my jenkins folder with: cd /home/d4asec/jenkins
+3. Start my Jenkins container (if not already running) with: ./jenkinsd4a_run
+4. Open Firefox in the Pivot or backupw server and visit http://192.168.75.211:8080 (for the RHDocker host) or http://192.168.75.251:8080 (for the backupl host)
+5. Login with the d4asec user, credentials should already be there.
+6. Back on the RHDocker or backupl servers move to my pipes folder with: cd /home/d4asec/pipes
+7. Start the gitweb container with the following command:
+sudo docker run --rm -d -e "CONTAINER_TIMEZONE=Europe/Paris" -e "GITPROJECT=test" -v /home/d4asec/pipes:/var/lib/git --name gitweb -p 90:80 fraoustin/gitweb
+8. Create a new file with vi called Jenkinsfile with this command: vi Jenkinsfile and press the "i" key to start the vi insert mode.
+9. Paste the following content in the new file:
+pipeline {
+        agent any
+        stages{
+                stage('Phase One'){
+                        steps{
+                                sh 'echo "Starting Phase one"'
+                        }
+                }
+                stage('Phase Two'){
+                        steps{
+                                sh docker images
+                                sh docker ps
+                }
+                stage('Phase Three'){
+                        steps{
+                                sh docker run --rm --name=localpipeline drones4all/public:localpipeline
+                }
+        }
+}
+
+10. Press the ESC key to quit the vi insert mode. Now press the following sequence to write your changes and exit vi: 
+
+:wq
+
+11. Now add your changes to git using the command: git add .
+12. Commit the change with the following command: git commit -m "any message"
+13. Back in the Jenkins web console click on the "test local pipe"
+14. From the left menu click the "Build Now" option and wait for the result.
+15. Most probably the build will fail. I haven't figured out what the problem is... maybe one day I will get it right.
