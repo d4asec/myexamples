@@ -3,7 +3,7 @@ NOTE: If you did not login as the d4asec user use "sudo" before every linux comm
 1. Login to the RHDocker or backupl servers as d4asec or d4ab92
 2. Move to my jenkins folder with: cd /home/d4asec/jenkins
 3. Start my Jenkins container (if not already running) with: ./jenkinsd4a_run
-4. Open Firefox in the Pivot or backupw server and visit http://192.168.75.211:8080 (for the RHDocker host) or http://192.168.75.251:8080 (for the backupl host)
+4. Open Firefox in the Pivot or backupw server and visit http://192.168.75.211:8080 (for the RHDocker host) or http://192.168.75.21:8080 (for the backupl host)
 5. Login with the d4asec user, credentials should already be there.
 6. Back on the RHDocker or backupl servers move to my pipes folder with: cd /home/d4asec/pipes
 7. Start the gitweb container with the following command:
